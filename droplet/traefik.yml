@@ -1,43 +1,60 @@
-################################################################
-# API and dashboard configuration
-################################################################
+#################################################################
+## Global Configuration
+#################################################################
+global:
+  checkNewVersion: true
+  sendAnonymousUsage: false
+
+#################################################################
+## API and dashboard configuration
+#################################################################
 api:
-  # Dashboard
-  #
-  #
   dashboard: true
-  insecure: true
+  insecure: false
 
-################################################################
-# Docker configuration backend
-################################################################
-providers:
-  docker:
-    exposedByDefault: false
-
-################################################################
-# Traefik Logging
-################################################################
+#################################################################
+## Traefik Logging
+#################################################################
+# Log level
 log:
   level: DEBUG
 
-################################################################
-# Entrypoint
-################################################################
+# Access log
+accessLog:
+  filePath: "/logs/access.log" # Optional: Define the file where logs are written (default: stdout)
+  format: json                 # Optional: Set log format (default is "common", also supports "json")
+  fields:
+    defaultMode: keep          # Optional: Control which fields to keep or drop
+    names:
+      "ClientAddr": drop       # Drop specific fields like ClientAddr
+      "ClientHost": keep       # Keep specific fields like ClientHost
+
+#################################################################
+## Entrypoint
+#################################################################
 entryPoints:
   web:
     address: ":80"
   websecure:
     address: ":443"
 
-################################################################
-# Challenege DNS
-################################################################
+#################################################################
+## Providers
+#################################################################
+providers:
+  docker:
+    endpoint: "unix:///var/run/docker.sock"
+    watch: true
+    exposedByDefault: false
+
+#################################################################
+## DNS Challenge
+#################################################################
 certificatesResolvers:
   myresolver:
     acme:
       email: joergoertel@proton.me
-      storage: acme.json
+      storage: /etc/traefik/acme/acme.json
       dnsChallenge:
         provider: digitalocean
         delayBeforeCheck: 0
