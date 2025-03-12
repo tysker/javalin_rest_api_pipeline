@@ -39,7 +39,7 @@ We use Github Actions to build the project, run the tests and push the Docker im
 
 Do the following to get the Testcontainers up and running:
 
-1. Run the following commands in your terminal
+1. Run the following command in your terminal
 
 ```bash 
     # New tag (mac m1/m2): 
