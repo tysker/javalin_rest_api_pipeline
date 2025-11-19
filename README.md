@@ -167,16 +167,14 @@ flowchart TD
 
 ## 📄 Full Documentation
 
-Separate files included in `/docs`:
-
-### `/docs/API.md`
+### Api
 
 * All routes
 * Example requests
 * Example JSON responses
 * Error model
 
-### `/docs/PIPELINE.md`
+### Pipeline
 
 * Docker architecture
 * Traefik configuration
