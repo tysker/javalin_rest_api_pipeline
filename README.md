@@ -174,19 +174,8 @@ flowchart TD
 * Example JSON responses
 * Error model
 
-### Pipeline
-
-* Docker architecture
-* Traefik configuration
-* GitHub Actions workflow explanation
-* Deployment steps
-* Environment variables
-
 ---
 
-# 📄 **/docs/API.md (Copy into /docs folder)**
-
-```md
 # API Documentation
 
 Base URL:
@@ -236,13 +225,16 @@ Deletes a user.
 }
 ```
 
-````
-
 ---
 
-# 📄 **/docs/PIPELINE.md (Copy into /docs folder)**
+### Pipeline
 
-```md
+* Docker architecture
+* Traefik configuration
+* GitHub Actions workflow explanation
+* Deployment steps
+* Environment variables
+
 # Deployment Pipeline Documentation
 
 This project includes a complete CI/CD pipeline with:
@@ -292,8 +284,6 @@ Traefik handles:
 
 `.env` contains:
 
-````
-
 DOMAIN=mydomain.com
 EMAIL=[admin@mydomain.com](mailto:admin@mydomain.com)
 POSTGRES_URL=jdbc:postgresql://db:5432/app
@@ -301,9 +291,6 @@ POSTGRES_USER=user
 POSTGRES_PASSWORD=password
 APP_PORT=7000
 
-```
-
----
 
 ## 5. Deployment Trigger
 
