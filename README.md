@@ -291,7 +291,7 @@ POSTGRES_URL=jdbc:postgresql://db:5432/app
 POSTGRES_USER=user
 POSTGRES_PASSWORD=password
 APP_PORT=7000
-``
+```  
 
 ## 5. Deployment Trigger
 
