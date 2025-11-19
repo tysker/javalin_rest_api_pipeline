@@ -1,38 +1,121 @@
-# Javalin(version 6) R.E.S.T Api Development Pipeline (CI/CD - Traefik)
+# 🚀 Deployment Pipeline (Traefik + Docker + GitHub Actions)
 
-### Description
+This branch contains the **full deployment pipeline** for the Javalin REST API.
+It includes everything needed to run the application in production using Docker, Traefik, and GitHub Actions.
 
-This is a simple REST API written in Java that allows you to create, read, update and delete users. 
-The API is secured with JWT tokens and uses a PostgresSQL database for storing user data.
+---
 
-This project is also used for testing the CI/CD pipeline with Github Actions. (See the .github/workflows folder)
-We use Github Actions to build the project, run the tests and push the Docker image to Docker Hub.
+## 📌 What This Branch Includes
 
-### Technologies used:
+* **Dockerfile** (production-ready)
+* **docker-compose.yml** (local)
+* **docker-compose.prod.yml** (production)
+* **Traefik reverse proxy**
 
-- JDK 17 (Java 17)
-- Hibernate (JPA Provider)
-- Javalin (Web Framework)
-- PostgresSQL (Database)
-- Maven (Dependency Management)
-- Docker (Containerization)
-- Docker Compose (Container Orchestration)
-- JUnit (Unit Testing)
-- Mockito (Mocking Framework)
-- Log4j (Logging Framework)
-- Testcontainers (Integration Testing)
-- Rest Assured (API Testing)
-- Træfik (Reverse Proxy, Load Balancer, Deployment)
-- DigitalOcean (Cloud Provider)
-- Github Actions (CI/CD)
-- Caddy (Web Server)
+  * Automatic HTTPS with Let's Encrypt
+  * Routers, services, middleware
+* **Environment variables** (`.env` templates)
+* **GitHub Actions CI/CD**
 
-### Prerequisites
+  * Build + Test
+  * Docker image push
+  * Deploy to remote server
 
-- JDK 17
-- Docker
-- Maven
-- Git
-- Postman (Optional)
+This branch is **only the pipeline setup** — the API code lives in the main branch.
+
+---
+
+## 🧰 Tech Used
+
+* Docker
+* Docker Compose
+* Traefik v3
+* GitHub Actions
+* DigitalOcean (remote target)
+
+---
+
+## 📂 Folder Overview
+
+```
+deployment/
+├── docker/
+│   ├── Dockerfile
+│   ├── docker-compose.yml
+│   └── docker-compose.prod.yml
+│
+├── traefik/
+│   ├── traefik.yml
+│   ├── traefik_dynamic.yml
+│   └── acme.json
+│
+└── github/
+    └── workflows/
+        └── deploy.yml
+```
+
+---
+
+## 🚀 How Deployment Works
+
+1. You push to **main**
+2. GitHub Actions:
+
+   * builds the project
+   * runs tests
+   * builds Docker image
+   * pushes image to Docker Hub
+3. Server pulls image via SSH
+4. `docker compose up -d` restarts the containers
+5. Traefik automatically handles HTTPS + routing
+
+---
+
+## ⚙️ Environment Variables
+
+Create a `.env` file inside `deployment/docker/`:
+
+```
+DOMAIN=mydomain.com
+EMAIL=admin@mydomain.com
+
+POSTGRES_URL=jdbc:postgresql://db:5432/app
+POSTGRES_USER=user
+POSTGRES_PASSWORD=password
+
+APP_PORT=7000
+```
+
+---
+
+## ▶️ Local Development
+
+```bash
+docker compose up --build
+```
+
+API available at:
+
+```
+http://localhost:7000
+```
+
+Traefik dashboard (if enabled):
+
+```
+http://localhost:8080
+```
+
+---
+
+## 📦 Production Deployment
+
+On the server:
+
+```bash
+docker compose -f docker-compose.prod.yml pull
+docker compose -f docker-compose.prod.yml up -d
+```
+
 
 
