@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project demonstrates how to design, build, and deploy a **production-ready Java REST API** with a fully automated **CI/CD pipeline** and container-based infrastructure.
+This project demonstrates how to design, build, and deploy a **production-ready Java REST API** with a fully automated **CI/CD pipeline** and container-based infrastructure, where changes are built, tested, and deployed without manual intervention.
 
 The focus is not only on API implementation, but on the **end-to-end delivery lifecycle**: clean backend architecture, automated testing, containerization, secure routing, and zero-touch deployment.
 
@@ -18,15 +18,14 @@ The focus is not only on API implementation, but on the **end-to-end delivery li
 
 ---
 
-
 ## What This Project Demonstrates
 
-* Clean, layered **Java backend architecture** (DAO → Service → Controller)
-* REST API design with validation and structured error handling
-* **Automated CI/CD pipeline** from Git push to production deployment
-* Containerized runtime using Docker and Docker Compose
-* Reverse proxy, HTTPS, and routing with **Traefik**
-* Environment-based configuration suitable for real deployments
+- Clean, layered **Java backend architecture** (DAO → Service → Controller)
+- REST API design with validation and structured error handling
+- **Automated CI/CD pipeline** from Git push to production deployment
+- Containerized runtime using Docker and Docker Compose
+- Reverse proxy, HTTPS, and routing with **Traefik**
+- Environment-based configuration suitable for real deployments
 
 ---
 
@@ -95,17 +94,17 @@ This ensures that every change is **tested, packaged, and deployed automatically
 
 ### Backend
 
-* Java
-* Javalin
-* PostgreSQL
-* JUnit
+- Java
+- Javalin
+- PostgreSQL
+- JUnit
 
 ### DevOps & Infrastructure
 
-* Docker & Docker Compose
-* Traefik (reverse proxy & HTTPS)
-* GitHub Actions (CI/CD)
-* Linux server (cloud VM)
+- Docker & Docker Compose
+- Traefik (reverse proxy & HTTPS)
+- GitHub Actions (CI/CD)
+- Linux server (cloud VM)
 
 ---
 
@@ -164,10 +163,9 @@ The API returns structured error responses for predictable client behavior:
 
 This project reflects how backend services are built and operated in **real production environments**:
 
-* Automated delivery instead of manual deployments
-* Infrastructure-aware backend design
-* Clear separation of concerns
-* Secure routing and HTTPS by default
+- Automated delivery instead of manual deployments
+- Infrastructure-aware backend design
+- Secure routing and HTTPS by default
 
 It serves as a **practical reference** for building and shipping backend services reliably.
 
@@ -176,4 +174,3 @@ It serves as a **practical reference** for building and shipping backend service
 ## Disclaimer
 
 This project is a **demonstration and learning project** designed to showcase backend and DevOps practices. While simplified, the patterns and workflows mirror those used in real-world production systems.
-

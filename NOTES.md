@@ -1,41 +1,27 @@
-# 🚀 Deployment Pipeline (Traefik + Docker + GitHub Actions)
+# Internal Notes
+
+This document contains implementation details, experiments, and operational notes related to the Java REST API and CI/CD pipeline.
+
+It is intentionally more detailed than the main README and serves as a personal reference and deeper technical documentation.
+
+# Deployment Pipeline (Traefik + Docker + GitHub Actions)
 
 This branch contains the **full deployment pipeline** for the Javalin REST API.
 It includes everything needed to run the application in production using Docker, Traefik, and GitHub Actions.
 
 ---
 
-## 📌 What This Branch Includes
+## Tech Used
 
-* **Dockerfile** (production-ready)
-* **docker-compose.yml** (local)
-* **docker-compose.prod.yml** (production)
-* **Traefik reverse proxy**
-
-  * Automatic HTTPS with Let's Encrypt
-  * Routers, services, middleware
-* **Environment variables** (`.env` templates)
-* **GitHub Actions CI/CD**
-
-  * Build + Test
-  * Docker image push
-  * Deploy to remote server
-
-This branch is **only the pipeline setup** — the API code lives in the main branch.
+- Docker
+- Docker Compose
+- Traefik v3
+- GitHub Actions
+- DigitalOcean (remote target)
 
 ---
 
-## 🧰 Tech Used
-
-* Docker
-* Docker Compose
-* Traefik v3
-* GitHub Actions
-* DigitalOcean (remote target)
-
----
-
-## 📂 Folder Overview
+## Folder Overview
 
 ```
 deployment/
@@ -56,22 +42,22 @@ deployment/
 
 ---
 
-## 🚀 How Deployment Works
+## How Deployment Works
 
 1. You push to **main**
 2. GitHub Actions:
+   - builds the project
+   - runs tests
+   - builds Docker image
+   - pushes image to Docker Hub
 
-   * builds the project
-   * runs tests
-   * builds Docker image
-   * pushes image to Docker Hub
 3. Server pulls image via SSH
 4. `docker compose up -d` restarts the containers
 5. Traefik automatically handles HTTPS + routing
 
 ---
 
-## ⚙️ Environment Variables
+## Environment Variables
 
 Create a `.env` file inside `deployment/docker/`:
 
@@ -88,7 +74,7 @@ APP_PORT=7000
 
 ---
 
-## ▶️ Local Development
+## Local Development
 
 ```bash
 docker compose up --build
@@ -108,7 +94,7 @@ http://localhost:8080
 
 ---
 
-## 📦 Production Deployment
+## Production Deployment
 
 On the server:
 
@@ -116,6 +102,3 @@ On the server:
 docker compose -f docker-compose.prod.yml pull
 docker compose -f docker-compose.prod.yml up -d
 ```
-
-
-
