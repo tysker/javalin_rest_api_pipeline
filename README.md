@@ -1,7 +1,10 @@
-# 🔗 Javalin REST API + Traefik Deployment Pipeline
+# Java REST API with CI/CD & Traefik Deployment
 
-A lightweight REST API built with **Javalin** and a full production-ready DevOps pipeline using **Docker**, **Traefik**, and **GitHub Actions**.  
-Includes routing, controllers, exception handling, middleware-style security, PostgreSQL integration, and automated CI/CD deployment.
+## Overview
+
+This project demonstrates how to design, build, and deploy a **production-ready Java REST API** with a fully automated **CI/CD pipeline** and container-based infrastructure.
+
+The focus is not only on API implementation, but on the **end-to-end delivery lifecycle**: clean backend architecture, automated testing, containerization, secure routing, and zero-touch deployment.
 
 ---
 
@@ -15,108 +18,107 @@ Includes routing, controllers, exception handling, middleware-style security, Po
 
 ---
 
-## 📌 Summary
 
-This repository contains:
+## What This Project Demonstrates
 
-### **1. A modular, production-ready REST API (main branch)**  
-- Javalin routing  
-- DAO → Service → Controller  
-- Exception & validation handling  
-- JWT or custom authentication (depending on your config)  
-- Unit + integration tests  
-- PostgreSQL integration  
-
-### **2. A complete deployment pipeline (traefik-pipeline branch)**  
-- Dockerfile + docker-compose  
-- Traefik reverse proxy & TLS certificates  
-- GitHub Actions CI/CD  
-- DigitalOcean deployment (SSH + Docker Compose)  
-- Environment-based configuration  
-
-Branch link:  
-🔗 https://github.com/tysker/javalin_rest_api_pipeline/tree/traefik-pipeline
+* Clean, layered **Java backend architecture** (DAO → Service → Controller)
+* REST API design with validation and structured error handling
+* **Automated CI/CD pipeline** from Git push to production deployment
+* Containerized runtime using Docker and Docker Compose
+* Reverse proxy, HTTPS, and routing with **Traefik**
+* Environment-based configuration suitable for real deployments
 
 ---
 
-## 🧰 Tech Stack
-
-### Backend
-- Java + Javalin  
-- PostgreSQL  
-- JUnit testing  
-
-### DevOps
-- Docker & Docker Compose  
-- Traefik v3 reverse proxy  
-- GitHub Actions CI/CD  
-- DigitalOcean droplet (Ubuntu)
-
----
-
-## 📂 Project Structure
+## Architecture Overview
 
 ```
+Developer
+   │
+   ▼
+GitHub Repository
+   │
+   ▼
+GitHub Actions (CI/CD)
+   │   - Build & Test
+   │   - Build Docker Image
+   │   - Push Image
+   │   - Deploy via SSH
+   ▼
+Docker & Docker Compose
+   │
+   ▼
+Traefik (HTTPS & Routing)
+   │
+   ▼
+Java REST API  ──► PostgreSQL
+```
 
+---
+
+## Repository Structure
+
+```
 src/
 ├── main/java/
 │   ├── controllers/      # HTTP endpoints
-│   ├── daos/             # Database layer
+│   ├── daos/             # Persistence layer
 │   ├── services/         # Business logic
-│   ├── exceptions/       # Custom exceptions
-│   ├── security/         # Access manager / filters
-│   ├── util/             # Helpers
+│   ├── exceptions/       # Centralized error handling
+│   ├── security/         # Authentication / access control
+│   ├── util/             # Shared utilities
 │   └── App.java          # Application entrypoint
 │
 └── test/
-├── unit/             # Unit tests
-└── integration/      # Integration tests
-
+    ├── unit/             # Unit tests
+    └── integration/      # Integration tests
 ```
 
 ---
 
-## 📂 Deployment Pipeline (traefik-pipeline branch)
+## CI/CD Pipeline
 
-```
+The pipeline is triggered automatically on pushes to the `main` branch and performs:
 
-deployment/
-├── docker/
-│   ├── Dockerfile
-│   ├── docker-compose.yml
-│   ├── docker-compose.prod.yml
-│   └── .env
-│
-├── traefik/
-│   ├── traefik.yml              # Static config
-│   ├── traefik_dynamic.yml      # Routers / TLS
-│   └── acme.json                # Certificate storage
-│
-└── github/workflows/
-└── deploy.yml               # CI/CD pipeline
+1. Source checkout
+2. Build and test execution (`mvn package`)
+3. Docker image build
+4. Image push to registry
+5. Remote deployment via SSH
+6. Zero-downtime restart using Docker Compose
 
-````
+This ensures that every change is **tested, packaged, and deployed automatically**.
 
 ---
 
-## 🧪 Testing
+## Deployment Stack
 
-Run tests:
+### Backend
 
-```bash
-mvn test
-````
+* Java
+* Javalin
+* PostgreSQL
+* JUnit
+
+### DevOps & Infrastructure
+
+* Docker & Docker Compose
+* Traefik (reverse proxy & HTTPS)
+* GitHub Actions (CI/CD)
+* Linux server (cloud VM)
 
 ---
 
-## 🚀 Local Development
+## Local Development
+
+Build and run locally:
 
 ```bash
 mvn clean package
 java -jar target/app.jar
 ```
 
-Runs at:
+Application runs at:
 
 ```
 http://localhost:7000
@@ -124,97 +126,28 @@ http://localhost:7000
 
 ---
 
-## 🚀 CI/CD Pipeline Overview
-
-```mermaid
-flowchart TD
-    A[Push to GitHub] --> B[GitHub Actions]
-    B --> C[Run Tests / Build JAR]
-    C --> D[Build Docker Image]
-    D --> E[Push Image to Docker Hub]
-    E --> F[SSH into DigitalOcean Server]
-    F --> G[docker compose pull]
-    G --> H[docker compose up -d]
-    H --> I[Traefik Routes Traffic + HTTPS]
-```
-
----
-
-## 🛰️ Deployment Architecture
-
-```md
-                     ┌──────────────────────────┐
-                     │        Traefik v3         │
-                     │  Automatic HTTPS / Routing │
-                     └──────────────┬────────────┘
-                                    │
-                   ┌────────────────┴────────────────┐
-                   │                                 │
-         ┌─────────▼──────────┐          ┌──────────▼─────────┐
-         │   Javalin API       │          │   Admin Dashboard   │
-         │   (Docker Container)│          │   (Optional)        │
-         └─────────┬──────────┘          └──────────┬──────────┘
-                   │                                 │
-                   └────────────────┬────────────────┘
-                                    │
-                         ┌──────────▼─────────┐
-                         │    PostgreSQL       │
-                         │ (Docker Container)  │
-                         └─────────────────────┘
-```
-
----
-
-## 📄 Full Documentation
-
-### Api
-
-* All routes
-* Example requests
-* Example JSON responses
-* Error model
-
----
-
-# API Documentation
-
-Base URL:
-```
-
-`/api/*`
-
-````
-
-## User Endpoints
+## API Example
 
 ### GET /api/users
-Returns list of users.
 
-### GET /api/users/:id
-Returns a user by ID.
+Returns a list of users.
 
 ### POST /api/users
+
 Creates a new user.
 
-Body:
 ```json
 {
   "username": "john",
   "password": "secret"
 }
-````
-
-### PATCH /api/users/:id
-
-Updates a user.
-
-### DELETE /api/users/:id
-
-Deletes a user.
+```
 
 ---
 
-## Error Model
+## Error Handling
+
+The API returns structured error responses for predictable client behavior:
 
 ```json
 {
@@ -227,74 +160,20 @@ Deletes a user.
 
 ---
 
-### Pipeline
+## Why This Matters
 
-* Docker architecture
-* Traefik configuration
-* GitHub Actions workflow explanation
-* Deployment steps
-* Environment variables
+This project reflects how backend services are built and operated in **real production environments**:
 
-# Deployment Pipeline Documentation
+* Automated delivery instead of manual deployments
+* Infrastructure-aware backend design
+* Clear separation of concerns
+* Secure routing and HTTPS by default
 
-This project includes a complete CI/CD pipeline with:
-
-- Docker
-- Docker Compose
-- Traefik v3
-- GitHub Actions
-- DigitalOcean (remote server)
+It serves as a **practical reference** for building and shipping backend services reliably.
 
 ---
 
-## 1. Build Process
+## Disclaimer
 
-GitHub Actions performs:
+This project is a **demonstration and learning project** designed to showcase backend and DevOps practices. While simplified, the patterns and workflows mirror those used in real-world production systems.
 
-1. Checkout  
-2. Java build (`mvn -B package`)  
-3. Run tests  
-4. Build Docker image  
-5. Push to Docker Hub  
-
----
-
-## 2. Deployment Process
-
-1. GitHub connects to the remote server via SSH  
-2. Server pulls the latest Docker image  
-3. Traefik reloads routes automatically  
-4. New version goes live instantly  
-
----
-
-## 3. Traefik Overview
-
-Traefik handles:
-
-- HTTPS certificates via Let’s Encrypt  
-- Routing to API container  
-- Middleware  
-- Logging  
-- Security headers  
-
----
-
-## 4. Environment Variables
-
-`.env` contains:
-
-```
-DOMAIN=mydomain.com
-EMAIL=[admin@mydomain.com](mailto:admin@mydomain.com)
-POSTGRES_URL=jdbc:postgresql://db:5432/app
-POSTGRES_USER=user
-POSTGRES_PASSWORD=password
-APP_PORT=7000
-```  
-
-## 5. Deployment Trigger
-
-Push to `main` automatically triggers deployment.
-
----
