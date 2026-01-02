@@ -8,7 +8,7 @@ The focus is not only on API implementation, but on the **end-to-end delivery li
 
 ---
 
-## 🧿 Status & CI/CD
+## Status & CI/CD
 
 ![Build](https://img.shields.io/github/actions/workflow/status/tysker/javalin_rest_api_pipeline/deploy.yml?branch=main&style=for-the-badge)
 ![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
